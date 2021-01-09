@@ -9,8 +9,8 @@ producer = KafkaProducer(
     value_serializer=lambda x: dumps(x).encode('utf-8')
 )
 
-for j in range(10):
+for j in range(10000):
     print("Iteration", j)
     data = {'counter': j}
     producer.send('counter', value=data)
-    time.sleep(0.5)
+    time.sleep(1)
