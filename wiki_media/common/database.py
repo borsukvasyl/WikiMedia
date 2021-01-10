@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import databases
 import sqlalchemy
@@ -13,7 +14,7 @@ class Database:
 
         metadata = sqlalchemy.MetaData()
         self.users = sqlalchemy.Table(
-            "notes",
+            "users",
             metadata,
             sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
             sqlalchemy.Column("user", sqlalchemy.String),
@@ -21,14 +22,14 @@ class Database:
             sqlalchemy.Column("type", sqlalchemy.String),
             sqlalchemy.Column("title", sqlalchemy.String),
             sqlalchemy.Column("comment", sqlalchemy.String),
-            sqlalchemy.Column("timestamp", sqlalchemy.DateTime)
+            sqlalchemy.Column("timestamp", sqlalchemy.Date)
         )
         engine = sqlalchemy.create_engine(database_url)
         metadata.create_all(engine)
 
     @classmethod
     def init(cls):
-        return cls(os.environ.get("DB_URL", constants.DB_URL), "users", "postgres", "postgres")
+        return cls(os.environ.get("DB_URL", constants.DB_URL), constants.DB_DATABASE, "postgres", "postgres")
 
     async def connect(self):
         await self.database.connect()
@@ -41,5 +42,7 @@ class Database:
         return await self.database.fetch_all(query)
 
     async def add(self, user: dict):
+        if isinstance(user["timestamp"], int):
+            user["timestamp"] = datetime.fromtimestamp(user["timestamp"])
         query = self.users.insert().values(**user)
         return await self.database.execute(query)

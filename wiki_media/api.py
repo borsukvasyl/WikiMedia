@@ -54,8 +54,8 @@ async def get(request: Request, user_id: Optional[str] = None):
 
 @router.get("/get/user")
 async def get(user_id: str):
-    user = await database.get(user_id)
-    logger.info(user)
+    users = await database.get(user_id)
+    return [dict(user) for user in users]
 
 
 app = FastAPI()

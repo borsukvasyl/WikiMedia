@@ -27,7 +27,7 @@ def kafka_client():
 
 
 async def _fastapi_client():
-    async for event in aiosseclient("http://localhost:8000/user?user_id", timeout=None):
+    async for event in aiosseclient("http://localhost:8000/stream/user", timeout=None):
         print(f"Event: {event.event}")
         print(f"Data: {event.data}")
 
