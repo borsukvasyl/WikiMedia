@@ -6,4 +6,4 @@ ENV PYTHONPATH="."
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python", "wiki_media/producer.py"]
+ENTRYPOINT ["python", "wiki_media/processor.py", "worker", "-l", "info"]
