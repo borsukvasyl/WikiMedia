@@ -1,5 +1,6 @@
 WIKI_URL = "https://stream.wikimedia.org/v2/stream/recentchange"
 KAFKA_URL = "localhost:9092"
+DB_URL = "localhost:5432"
 API_URL = "localhost:8000"
 
 RAW_CHANNEL = "wiki"

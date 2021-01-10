@@ -32,7 +32,6 @@ class WikiMediaProducer:
 
 
 if __name__ == '__main__':
-    # time.sleep(10)
     kafka_url = os.environ.get("KAFKA_URL", constants.KAFKA_URL)
     producer = WikiMediaProducer(kafka_url)
     producer.run()
