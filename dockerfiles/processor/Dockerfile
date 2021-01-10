@@ -1,6 +1,6 @@
 FROM python:3.6
 
-WORKDIR /opt/workspace/producer
+WORKDIR /opt/workspace/processor
 COPY . .
 ENV PYTHONPATH="."
 
