@@ -58,6 +58,26 @@ async def get(user_id: str):
     return [dict(user) for user in users]
 
 
+@router.get("/get/user-contribution")
+async def get(user_id: str):
+    contribution = await database.get_user_contribution(user_id)
+    return contribution
+
+
+@router.get("/get/top-user")
+async def get(time: str):
+    user = await database.get_top_user(time)
+    print(user)
+    return user
+
+
+@router.get("/get/top-topic")
+async def get():
+    topics = await database.get_top_topics()
+    print(topics)
+    return topics
+
+
 app = FastAPI()
 app.include_router(router)
 database = Database.init()
