@@ -28,7 +28,7 @@ class WikiMediaProducer:
             if event.event == "message":
                 logger.info("Posted raw message")
                 self.producer.send(constants.RAW_CHANNEL, value=event.data)
-            time.sleep(5)
+            # time.sleep(5)
 
 
 if __name__ == '__main__':

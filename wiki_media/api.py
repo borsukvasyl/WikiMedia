@@ -46,7 +46,7 @@ async def kafka_stream(request: Request, user_id: Optional[str] = None):
             }
 
 
-@router.get("/stream/user")
+@router.get("/stream")
 async def get(request: Request, user_id: Optional[str] = None):
     event_generator = kafka_stream(request, user_id)
     return EventSourceResponse(event_generator)
@@ -58,6 +58,12 @@ async def get(user_id: str):
     return [dict(user) for user in users]
 
 
+@router.get("/get/user-topics")
+async def get(user_id: str, n: int = 1):
+    topics = await database.get_user_topics(user_id, n)
+    return topics
+
+
 @router.get("/get/user-contribution")
 async def get(user_id: str):
     contribution = await database.get_user_contribution(user_id)
@@ -67,14 +73,12 @@ async def get(user_id: str):
 @router.get("/get/top-user")
 async def get(time: str):
     user = await database.get_top_user(time)
-    print(user)
     return user
 
 
 @router.get("/get/top-topic")
 async def get():
     topics = await database.get_top_topics()
-    print(topics)
     return topics
 
 

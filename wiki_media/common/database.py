@@ -48,6 +48,17 @@ class Database:
         query = self.users.insert().values(**user)
         return await self.database.execute(query)
 
+    async def get_user_topics(self, user_id: str, n: int = 1):
+        return await self.database.fetch_all(
+            "SELECT title, COUNT(*) AS count "
+            "FROM users "
+            "WHERE \"user\" = :user_id "
+            "GROUP BY title "
+            "ORDER BY count DESC "
+            "LIMIT :n",
+            values={"user_id": user_id, "n": n}
+        )
+
     async def get_user_contribution(self, user_id: str):
         return await self.database.fetch_all(
             "SELECT type, COUNT(*) as count "
