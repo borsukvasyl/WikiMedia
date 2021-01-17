@@ -38,13 +38,15 @@ class Database:
     async def disconnect(self):
         await self.database.disconnect()
 
-    async def get(self, user_id: str):
-        query = self.users.select(whereclause=self.users.c.user == user_id)
+    async def get(self, user_id: str, page: int = 0, page_size: int = 25):
+        query = self.users.select(whereclause=self.users.c.user == user_id)\
+            .limit(page_size)\
+            .offset(page * page_size)
         return await self.database.fetch_all(query)
 
     async def add(self, user: dict):
         if isinstance(user["timestamp"], int):
-            user["timestamp"] = datetime.fromtimestamp(user["timestamp"])
+            user["timestamp"] = datetime.utcfromtimestamp(user["timestamp"])
         query = self.users.insert().values(**user)
         return await self.database.execute(query)
 

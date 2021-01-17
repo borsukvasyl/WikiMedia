@@ -53,8 +53,8 @@ async def get(request: Request, user_id: Optional[str] = None):
 
 
 @router.get("/get/user")
-async def get(user_id: str):
-    users = await database.get(user_id)
+async def get(user_id: str, page: int = 0):
+    users = await database.get(user_id, page=page)
     return [dict(user) for user in users]
 
 
