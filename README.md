@@ -1,4 +1,10 @@
-## WikiAnalyzer
+# WikiAnalyzer
+
+## Data flow
+![](docs/data_flow.png)
+
+## Technologies
+![](docs/technologies.png)
 
 ### Run backend
 ```shell
@@ -9,5 +15,5 @@ docker-compose down
 ```
 ### Run client
 ```shell
-PYTHONPATH="." python wiki_media/consumer.py
+PYTHONPATH="." python wiki_media/consumer.py fastapi
 ```
