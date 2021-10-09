@@ -13,7 +13,7 @@ from wiki_media.common.logger import create_logger
 
 logger = create_logger(__name__)
 router = APIRouter()
-kafka_url = os.environ.get("KAFKA_URL", constants.KAFKA_URL)
+kafka_url = os.getenv("KAFKA_URL", constants.KAFKA_URL)
 
 status_stream_retry_timeout = 30000  # milisecond
 

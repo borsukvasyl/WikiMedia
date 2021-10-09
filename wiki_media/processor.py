@@ -6,7 +6,7 @@ import faust
 from wiki_media.common import constants
 from wiki_media.common.database import Database
 
-kafka_url = os.environ.get("KAFKA_URL", constants.KAFKA_URL)
+kafka_url = os.getenv("KAFKA_URL", constants.KAFKA_URL)
 app = faust.App("wiki_media", broker=f"kafka://{kafka_url}")
 raw_topic = app.topic(constants.RAW_CHANNEL)
 database = Database.init()
