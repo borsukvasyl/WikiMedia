@@ -11,7 +11,7 @@ from wiki_media.common import constants
 
 
 def kafka_client():
-    kafka_url = os.environ.get("KAFKA_URL", constants.KAFKA_URL)
+    kafka_url = os.getenv("KAFKA_URL", constants.KAFKA_URL)
     consumer = KafkaConsumer(
         bootstrap_servers=[kafka_url],
         auto_offset_reset="latest",  # "'earliest',
@@ -43,7 +43,7 @@ def main(client: str):
     elif client == "fastapi":
         fastapi_client()
     else:
-        raise ValueError("kokoko")
+        raise ValueError("Wrong client type")
 
 
 if __name__ == '__main__':

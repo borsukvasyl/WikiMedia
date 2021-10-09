@@ -30,7 +30,7 @@ class Database:
 
     @classmethod
     def init(cls):
-        return cls(os.environ.get("DB_URL", constants.DB_URL), constants.DB_DATABASE, "postgres", "postgres")
+        return cls(os.getenv("DB_URL", constants.DB_URL), constants.DB_DATABASE, "postgres", "postgres")
 
     async def connect(self):
         await self.database.connect()
@@ -39,9 +39,9 @@ class Database:
         await self.database.disconnect()
 
     async def get(self, user_id: str, page: int = 0, page_size: int = 25):
-        query = self.users.select(whereclause=self.users.c.user == user_id)\
-            .limit(page_size)\
-            .offset(page * page_size)
+        query = self.users.select(
+            whereclause=self.users.c.user == user_id
+        ).limit(page_size).offset(page * page_size)
         return await self.database.fetch_all(query)
 
     async def add(self, user: dict):
